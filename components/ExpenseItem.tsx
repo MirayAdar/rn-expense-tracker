@@ -3,17 +3,15 @@ import React, { useMemo } from "react";
 import { GlobalStyles } from "../constants/styles";
 import { Expense } from "../types/Expense";
 import { formatDate } from "../utils/getFormattedDate";
+import { useNavigation } from "@react-navigation/native";
 
-type ExpenseItemProps = {
-  description: string;
-  amount: number;
-  date: Date;
-};
-const ExpenseItem = ({ description, amount, date }: ExpenseItemProps) => {
+const ExpenseItem = ({ id, description, amount, date }: Expense) => {
   const formattedDate = useMemo(() => formatDate(date), [date]);
 
+  const navigation = useNavigation<any>();
+
   function expensePressHandler(): void {
-    console.log("Pressed");
+    navigation.navigate("ManageExpense", { expenseId: id });
   }
   return (
     <Pressable
